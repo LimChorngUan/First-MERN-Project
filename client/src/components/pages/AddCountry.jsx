@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../api';
+import { Redirect } from 'react-router-dom'
 
 class AddCountry extends Component {
   constructor(props) {
@@ -49,6 +50,9 @@ class AddCountry extends Component {
       .catch(err => this.setState({ message: err.toString() }));
   }
   render() {
+    if (!api.isLoggedIn()) {
+      return <Redirect to="/login"></Redirect>
+    }
     return (
       <div className="AddCountry">
         <h2>Add country</h2>

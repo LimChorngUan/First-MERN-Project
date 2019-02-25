@@ -5,7 +5,7 @@ const service = axios.create({
     process.env.NODE_ENV === 'production'
       ? '/api'
       : 'http://localhost:5000/api',
-  withCredentials: true
+  withCredentials: true // send cookies to session
 });
 
 const errHandler = err => {
@@ -57,6 +57,20 @@ export default {
   getCountries() {
     return service
       .get('/countries')
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  getCountry(countryId) {
+    return service
+      .get('/countries/' + countryId)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  editCountry(countryId, data) {
+    return service
+      .put('/countries/' + countryId, data)
       .then(res => res.data)
       .catch(errHandler);
   },

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const countrySchema = new mongoose.Schema({
   name: {
@@ -11,11 +12,15 @@ const countrySchema = new mongoose.Schema({
     default: []
   },
   area: {
-    type: Number,
+    type: Number
   },
   description: {
-    type: String,
+    type: String
   },
+  _creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 const Country = mongoose.model('Country', countrySchema);

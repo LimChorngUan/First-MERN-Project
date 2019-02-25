@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../api';
+import { Link } from 'react-router-dom';
 
 class Countries extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Countries extends Component {
       setTimeout(() => {
         this.setState({ message: null });
       }, 2000);
-    });
+    }).catch(err => this.setState({ message: err.toString() }));
   }
 
   render() {
@@ -30,6 +31,11 @@ class Countries extends Component {
           {this.state.countries.map(c => (
             <li key={c._id}>
               {c.name}
+              <br/>
+              {c._creator.username} shared this 
+              <br/>
+              <Link to={`/countries/${c._id}`}>Details </Link>
+              <Link to={`/edit-country/${c._id}`}>Edit </Link>
               <button onClick={() => this.deleteCountry(c._id)}>Delete</button>
             </li>
           ))}
